@@ -88,3 +88,23 @@ randomNum([0,9]);
 randomNum([7,3]);
 
 /////////////////////////////////////////
+// The unique string
+
+// Write a function that can take two or more strings as arguments and returns a string represent them all , all characters should be in same order in the original string but no duplication in the returned string
+
+// For example
+
+// uniqueStr("abcd","ahkd") // abcdhk
+// uniqueStr("rbanr","fzyrc") // rbanfzyc
+// uniqueStr("every","day","a problem") // evrydapoblm
+// Note: of Course you know that E and e are different characters
+
+function uniqueStr(...theArgs) {
+  let str = theArgs.join("").match(/[a-z]/gi); // Making an array of letters
+  console.log(str.filter((val, i) => str.indexOf(val) == i).join("")); // Filtering only unique letters
+}
+
+uniqueStr("abcd", "ahkd") // abcdhk
+uniqueStr("rbanr", "fzyrc") // rbanfzyc
+uniqueStr("every", "day", "a problem") // evrydapoblm
+uniqueStr("  The,QuiCK=", "+(bROwn_  FOx)", "/JUmPS$.  9-", "35 =ovER@", "tHE!-LAZY 0", "9  3%DoG&.") // TheQuiCKbROwnFxJUmPSovEtHLAZYDG
