@@ -56,6 +56,17 @@ const generateAngle = () => {
 
 console.log(generateAngle());
 
+//or
+
+const generateAngle = () => {
+  function final(first){
+	return (second = Math.floor(Math.random() * (120 - first)) + 30) => (third = 180 - first - second) => sum =>"first angle is " + first + ", second angle is " + second + ", third angle is " + third + ", sum is " + (first + second + third);
+  }
+  return final(Math.floor(Math.random() * (90)) + 30)()()();
+};
+
+console.log(generateAngle());
+
 /////////////////////////////////////////
 // A big random number
 // Write a function that takes an array of two elements (numbers < 10) as argument, and returns a number composed of all the numbers between the two numbers with minimum and maximum numbers inclusives randomly every time you call the function, numbers that composes our returned number should be different( no repeated numbers) and number of these numbers should be the same with the numbers in all range between the maximum and minimum number in array, with minimum and maximum inclusive, the array is not sorted so no strict places for maximum or minimum number in it
@@ -108,3 +119,73 @@ uniqueStr("abcd", "ahkd") // abcdhk
 uniqueStr("rbanr", "fzyrc") // rbanfzyc
 uniqueStr("every", "day", "a problem") // evrydapoblm
 uniqueStr("  The,QuiCK=", "+(bROwn_  FOx)", "/JUmPS$.  9-", "35 =ovER@", "tHE!-LAZY 0", "9  3%DoG&.") // TheQuiCKbROwnFxJUmPSovEtHLAZYDG
+
+/////////////////////////////////////////
+// Shift Capital
+// Write a function that takes two arguments, one represents a string that contains a capital letter that can be anywhere in the string , the second argument is a number represent number of shifts of the capital letter in the string when the function is called, if the index that the capital letter should be shifted to is not present , continue shifting from the beginning :sunglasses:
+
+// For example
+
+// shiftCapital(Udacity,4) // daciUty
+// shiftCapital(leaRning,4) // Rleaning
+// shiftCapital(frienDs,6) // frienDs
+// shiftCapital(frienDs,3)  // frDiens
+
+const shiftCapital = (input, num) => {
+	let i = input.search(/[A-Z]/g);
+	input = Array.from(input);
+	const char = input.splice(i, 1);
+    i = (i + num) % input.length;
+	return input.splice(0, i).join("") + char + input.join("");
+};
+
+console.log(shiftCapital("Udacity",4)); // daciUty
+console.log(shiftCapital("leaRning",4)); // Rleaning
+console.log(shiftCapital("frienDs",3)); // frDiens
+console.log(shiftCapital("frienDs",4)); // friDens
+
+/////////////////////////////////////////
+// Write a function that takes an array of any level of nesting , the function return an array represents the original array but the flattened version of it.
+
+// For example
+
+// flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7); // [1,5,6,2,5,10,12,15,3,8,6,7]
+
+function flatten(input, i = 0, acc = []) {
+	if (i == input.length) {
+		return acc;
+	} else {
+		return Array.isArray(input[i]) ? flatten(input[i], 0, acc) : acc.push(input[i]), flatten(input, i + 1, acc);
+    }
+}
+
+console.log(flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7])); // [1,5,6,2,5,10,12,15,3,8,6,7]
+
+// or
+
+const flatten = array => array.join(",").match(/\d+/g).map(val => parseInt(val));
+
+flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7]); // [1,5,6,2,5,10,12,15,3,8,6,7]
+
+/////////////////////////////////////////
+// Write a function that takes a string as an argument and returns another string exactly like the examples below
+
+// strManip("abcd")    // AbAc-BcBd-CdC-DD
+// strManip("hello")  // HeHl-ElEl-LlLo-LoL-OO
+// strManip("hi")    // HiH-II
+// strManip("A")    // AA
+// strManip("cAt") // CaCt-AtA-TT
+
+const strManip = (str, i = 0, acc = []) => {
+  if (i === str.length) {return console.log(acc.join("-"));}
+  acc.push(str.charAt(i).toUpperCase() + str.charAt(i + 1).toLowerCase() + str.charAt(i).toUpperCase() + str.charAt(i + 2).toLowerCase());
+strManip(str, i + 1, acc);
+};
+
+strManip("abcd");    // AbAc-BcBd-CdC-DD
+strManip("hello");  // HeHl-ElEl-LlLo-LoL-OO
+strManip("hi");    // HiH-II
+strManip("A");    // AA
+strManip("cAt"); // CaCt-AtA-TT
+
+/////////////////////////////////////////
