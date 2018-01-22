@@ -47,11 +47,11 @@ console.log(numchars());
 // triangle(); // 60,40,80
 
 const generateAngle = () => {
-	let first = Math.floor(Math.random() * (120 - 30)) + 30,
-	second = Math.floor(Math.random() * (180 - first - 30 - 30)) + 30,
-	third = 180 - first - second,
-	sum = first + second + third;
-	return `first angle is ${first}, second angle is ${second}, third angle is ${third}, sum is ${sum}`;
+  let first = Math.floor(Math.random() * (120 - 30)) + 30,
+    second = Math.floor(Math.random() * (180 - first - 30 - 30)) + 30,
+    third = 180 - first - second,
+    sum = first + second + third;
+  return `first angle is ${first}, second angle is ${second}, third angle is ${third}, sum is ${sum}`;
 };
 
 console.log(generateAngle());
@@ -59,8 +59,8 @@ console.log(generateAngle());
 //or
 
 const generateAngle = () => {
-  function final(first){
-	return (second = Math.floor(Math.random() * (120 - first)) + 30) => (third = 180 - first - second) => sum =>"first angle is " + first + ", second angle is " + second + ", third angle is " + third + ", sum is " + (first + second + third);
+  function final(first) {
+    return (second = Math.floor(Math.random() * (120 - first)) + 30) => (third = 180 - first - second) => sum => "first angle is " + first + ", second angle is " + second + ", third angle is " + third + ", sum is " + (first + second + third);
   }
   return final(Math.floor(Math.random() * (90)) + 30)()()();
 };
@@ -82,10 +82,10 @@ console.log(generateAngle());
 
 const randomNum = (input) => {
   const max = Math.max(...input),
-  min = Math.min(...input),
-  recursion = (num) => {
-    return num < 1 ? "" : numbers.splice((Math.floor(Math.random() * (numbers.length))), 1)[0] + recursion(num - 1);
-  };
+    min = Math.min(...input),
+    recursion = (num) => {
+      return num < 1 ? "" : numbers.splice((Math.floor(Math.random() * (numbers.length))), 1)[0] + recursion(num - 1);
+    };
   let numbers = [];
   for (let i = min; i <= max; i++) {
     numbers.push(i);
@@ -93,10 +93,10 @@ const randomNum = (input) => {
   return console.log(recursion(numbers.length));
 };
 
-randomNum([1,5]);
-randomNum([3,9]);
-randomNum([0,9]);
-randomNum([7,3]);
+randomNum([1, 5]);
+randomNum([3, 9]);
+randomNum([0, 9]);
+randomNum([7, 3]);
 
 /////////////////////////////////////////
 // The unique string
@@ -132,17 +132,17 @@ uniqueStr("  The,QuiCK=", "+(bROwn_  FOx)", "/JUmPS$.  9-", "35 =ovER@", "tHE!-L
 // shiftCapital(frienDs,3)  // frDiens
 
 const shiftCapital = (input, num) => {
-	let i = input.search(/[A-Z]/g);
-	input = Array.from(input);
-	const char = input.splice(i, 1);
-    i = (i + num) % input.length;
-	return input.splice(0, i).join("") + char + input.join("");
+  let i = input.search(/[A-Z]/g);
+  input = Array.from(input);
+  const char = input.splice(i, 1);
+  i = (i + num) % input.length;
+  return input.splice(0, i).join("") + char + input.join("");
 };
 
-console.log(shiftCapital("Udacity",4)); // daciUty
-console.log(shiftCapital("leaRning",4)); // Rleaning
-console.log(shiftCapital("frienDs",3)); // frDiens
-console.log(shiftCapital("frienDs",4)); // friDens
+console.log(shiftCapital("Udacity", 4)); // daciUty
+console.log(shiftCapital("leaRning", 4)); // Rleaning
+console.log(shiftCapital("frienDs", 3)); // frDiens
+console.log(shiftCapital("frienDs", 4)); // friDens
 
 /////////////////////////////////////////
 // Write a function that takes an array of any level of nesting , the function return an array represents the original array but the flattened version of it.
@@ -152,20 +152,20 @@ console.log(shiftCapital("frienDs",4)); // friDens
 // flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7); // [1,5,6,2,5,10,12,15,3,8,6,7]
 
 function flatten(input, i = 0, acc = []) {
-	if (i == input.length) {
-		return acc;
-	} else {
-		return Array.isArray(input[i]) ? flatten(input[i], 0, acc) : acc.push(input[i]), flatten(input, i + 1, acc);
-    }
+  if (i == input.length) {
+    return acc;
+  } else {
+    return Array.isArray(input[i]) ? flatten(input[i], 0, acc) : acc.push(input[i]), flatten(input, i + 1, acc);
+  }
 }
 
-console.log(flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7])); // [1,5,6,2,5,10,12,15,3,8,6,7]
+console.log(flatten([1, 5, 6, [2, 5, [10, 12, 15, []], 3, 8], 6, 7])); // [1,5,6,2,5,10,12,15,3,8,6,7]
 
 // or
 
 const flatten = array => array.join(",").match(/\d+/g).map(val => parseInt(val));
 
-flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7]); // [1,5,6,2,5,10,12,15,3,8,6,7]
+flatten([1, 5, 6, [2, 5, [10, 12, 15, []], 3, 8], 6, 7]); // [1,5,6,2,5,10,12,15,3,8,6,7]
 
 /////////////////////////////////////////
 // Write a function that takes a string as an argument and returns another string exactly like the examples below
@@ -177,15 +177,110 @@ flatten([1,5,6,[2,5,[10,12,15,[]],3,8],6,7]); // [1,5,6,2,5,10,12,15,3,8,6,7]
 // strManip("cAt") // CaCt-AtA-TT
 
 const strManip = (str, i = 0, acc = []) => {
-  if (i === str.length) {return console.log(acc.join("-"));}
+  if (i === str.length) {
+    return console.log(acc.join("-"));
+  }
   acc.push(str.charAt(i).toUpperCase() + str.charAt(i + 1).toLowerCase() + str.charAt(i).toUpperCase() + str.charAt(i + 2).toLowerCase());
-strManip(str, i + 1, acc);
+  strManip(str, i + 1, acc);
 };
 
-strManip("abcd");    // AbAc-BcBd-CdC-DD
-strManip("hello");  // HeHl-ElEl-LlLo-LoL-OO
-strManip("hi");    // HiH-II
-strManip("A");    // AA
+strManip("abcd"); // AbAc-BcBd-CdC-DD
+strManip("hello"); // HeHl-ElEl-LlLo-LoL-OO
+strManip("hi"); // HiH-II
+strManip("A"); // AA
 strManip("cAt"); // CaCt-AtA-TT
 
 /////////////////////////////////////////
+// After they became famous, the CodeBots all decided to move to a new building and live together. The building is represented by a rectangular matrix of rooms. Each cell in the matrix contains an integer that represents the price of the room. Some rooms are free (their cost is 0), but that's probably because they are haunted, so all the bots are afraid of them. That is why any room that is free or is located anywhere below a free room in the same column is not considered suitable for the bots to live in.
+// Help the bots calculate the total price of all the rooms that are suitable for them.
+
+// Example
+// For
+// matrix = [[0, 1, 1, 2], 
+//           [0, 5, 0, 0], 
+//           [2, 0, 3, 3]]
+// the output should be
+// matrixElementsSum(matrix) = 9.
+
+// Here's the rooms matrix with unsuitable rooms marked with 'x':
+// [[x, 1, 1, 2], 
+//  [x, 5, x, x], 
+//  [x, x, x, x]]
+// Thus, the answer is 1 + 5 + 1 + 2 = 9.
+
+// For
+// matrix = [[1, 1, 1, 0], 
+//           [0, 5, 0, 1], 
+//           [2, 1, 3, 10]]
+// the output should be
+// matrixElementsSum(matrix) = 9.
+
+// Here's the rooms matrix with unsuitable rooms marked with 'x':
+// [[1, 1, 1, x], 
+//  [x, 5, x, x], 
+//  [x, 1, x, x]]
+// Note that the free room in the first row make the full column unsuitable for bots.
+
+// Thus, the answer is 1 + 1 + 1 + 5 + 1 = 9.
+
+function matrixElementsSum(matrix) {
+
+  // Inner function will change to null all prices of all rooms below haunted ones 
+  function belowHauntedToNull(array, levelIndex, roomNum, length = matrix.length) {
+    for (let i = levelIndex + 1; i < length; i++) {
+      array[i][roomNum] = null;
+    }
+  }
+
+  // Making copy of original array, to prevent its alteration
+  let matrixCopy = matrix.slice(0),
+    totalPrice = 0;
+
+  // Looping over every room, calling belowHauntedToNull if room is haunted
+  matrixCopy.forEach((level, levelIndex) => {
+    level.forEach((roomPrice, roomNum) => {
+      if (roomPrice === 0) {
+        belowHauntedToNull(matrixCopy, levelIndex, roomNum);
+      } else {
+        totalPrice += roomPrice;
+      }
+    });
+  });
+
+  return totalPrice;
+}
+
+/////////////////////////////////////////
+// You have $15 with you. You go to a shop and shopkeeper tells you price as $1 per chocolate. 
+// He also tells you that you can get a chocolate in return of 3 wrappers. 
+// How many maximum chocolates you can eat?
+
+// Write a program to find solution for variable inputs. Given following three values, 
+// the task is to find the total number of maximum chocolates you can eat.
+
+// money: Money you have to buy chocolates
+// price: Price of a chocolate
+// wrap: Number of wrappers to be returned for getting one extra chocolate.
+
+// It may be assumed that all given values are positive integers and greater than 1.
+
+const chocolatesFromWrap = (wrapBonus, wrapLeft, accumulator = 0) => {
+  if (wrapLeft >= wrapBonus) {
+    const bonusChocolates = Math.floor(wrapLeft / wrapBonus);
+    return chocolatesFromWrap(wrapBonus, (wrapLeft % wrapBonus + bonusChocolates), (accumulator + bonusChocolates));
+  } else {
+    return accumulator;
+  }
+};
+
+const chocolatesCounter = (money, price, wrap) => {
+  if (money >= price) {
+    const chocolatesToBuy = Math.floor(money / price),
+          totalChocolates = chocolatesFromWrap(wrap, chocolatesToBuy, chocolatesToBuy);
+    return "You can eat " + totalChocolates + (totalChocolates > 1 ? " chocolates." : " chocolate.");
+  } else {
+    return "You don't have enough money to buy chocolates.";
+  }  
+};
+
+console.log(chocolatesCounter(15, 1, 3));
