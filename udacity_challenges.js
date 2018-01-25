@@ -284,3 +284,35 @@ const chocolatesCounter = (money, price, wrap) => {
 };
 
 console.log(chocolatesCounter(15, 1, 3));
+
+
+/////////////////////////////////////////
+// You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. 
+// It is guaranteed that the parentheses in s form a regular bracket sequence.
+
+// Your task is to reverse the strings contained in each pair of matching parentheses, starting from the innermost pair. 
+// The results string should not contain any parentheses.
+
+// Example
+
+// For string s = "The ((quick (brown) (fox) jumps over the lazy) dog)", the output should be
+// reverseParentheses(s) = "The god quick nworb xof jumps over the lazy".
+
+function reverseParentheses(str) {
+  let arrFromStr = str.split("");
+  let leftParenthesesIndex = [];
+  
+  arrFromStr.forEach((char, i) => {
+    if (char === "(") leftParenthesesIndex.push(i);
+    if (char === ")") {
+      let firstIndex = leftParenthesesIndex.pop();
+      let toReverse = arrFromStr.splice(firstIndex, i - firstIndex + 1);
+      toReverse.reverse();
+      arrFromStr.splice(firstIndex, 0, ...toReverse);
+    }
+  });
+  return arrFromStr.join("").replace(/[()]/g, "");
+}
+
+
+console.log(reverseParentheses("The ((quick (brown) (fox) jumps over the lazy) dog)") === "The god quick nworb xof jumps over the lazy");
