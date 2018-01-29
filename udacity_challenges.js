@@ -69,7 +69,10 @@ console.log(generateAngle());
 
 /////////////////////////////////////////
 // A big random number
-// Write a function that takes an array of two elements (numbers < 10) as argument, and returns a number composed of all the numbers between the two numbers with minimum and maximum numbers inclusives randomly every time you call the function, numbers that composes our returned number should be different( no repeated numbers) and number of these numbers should be the same with the numbers in all range between the maximum and minimum number in array, with minimum and maximum inclusive, the array is not sorted so no strict places for maximum or minimum number in it
+// Write a function that takes an array of two elements (numbers < 10) as argument, 
+// and returns a number composed of all the numbers between the two numbers with minimum and maximum numbers inclusives randomly every time you call the function, 
+// numbers that composes our returned number should be different( no repeated numbers) and number of these numbers should be the same with the numbers in all range between the maximum and minimum number in array, 
+// with minimum and maximum inclusive, the array is not sorted so no strict places for maximum or minimum number in it
 
 // Really i have wrote tons of word “number” so it may be confusing, lets jump to examples :grinning:
 
@@ -191,7 +194,11 @@ strManip("A"); // AA
 strManip("cAt"); // CaCt-AtA-TT
 
 /////////////////////////////////////////
-// After they became famous, the CodeBots all decided to move to a new building and live together. The building is represented by a rectangular matrix of rooms. Each cell in the matrix contains an integer that represents the price of the room. Some rooms are free (their cost is 0), but that's probably because they are haunted, so all the bots are afraid of them. That is why any room that is free or is located anywhere below a free room in the same column is not considered suitable for the bots to live in.
+// After they became famous, the CodeBots all decided to move to a new building and live together. 
+// The building is represented by a rectangular matrix of rooms. 
+// Each cell in the matrix contains an integer that represents the price of the room. 
+// Some rooms are free (their cost is 0), but that's probably because they are haunted, so all the bots are afraid of them. 
+// That is why any room that is free or is located anywhere below a free room in the same column is not considered suitable for the bots to live in.
 // Help the bots calculate the total price of all the rooms that are suitable for them.
 
 // Example
@@ -316,3 +323,128 @@ function reverseParentheses(str) {
 
 
 console.log(reverseParentheses("The ((quick (brown) (fox) jumps over the lazy) dog)") === "The god quick nworb xof jumps over the lazy");
+
+
+/////////////////////////////////////////
+// Two arrays are called similar if one can be obtained from another by swapping at most one pair of elements in one of the arrays.
+
+// Given two arrays a and b, check whether they are similar.
+
+// Example
+
+// For a = [1, 2, 3] and b = [1, 2, 3], the output should be
+// areSimilar(a, b) = true.
+
+// The arrays are equal, no need to swap any elements.
+
+// For a = [1, 2, 3] and b = [2, 1, 3], the output should be
+// areSimilar(a, b) = true.
+
+// We can obtain b from a by swapping 2 and 1 in b.
+
+// For a = [1, 2, 2] and b = [2, 1, 1], the output should be
+// areSimilar(a, b) = false.
+
+// Any swap of any two elements either in a or in b won't make a and b equal.
+
+function areSimilar(a, b) {
+  let badIndexes = [],
+      badNums = [];
+  
+  for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) {
+          badIndexes.push(i);
+          badNums.push(b[i]);
+      }
+  }
+  if (badIndexes.length > 2) return false;
+  for (let index of badIndexes) {
+      if (!badNums.includes(a[index])) return false;
+  }
+  return true;
+}
+
+
+const a = [832, 998, 148, 570, 533, 561, 894, 147, 455, 279]
+const b = [832, 998, 148, 570, 533, 561, 455, 147, 894, 279];
+
+console.log(areSimilar(a, b)); // true
+
+
+/////////////////////////////////////////
+// In this kata you have to create all permutations of an input string and remove duplicates, if present. 
+// This means, you have to shuffle all letters from the input in all possible orders.
+
+// Examples:
+
+// permutations('a'); // ['a']
+// permutations('ab'); // ['ab', 'ba']
+// permutations('aabb'); // ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+
+function permutations(string) {
+  const length = string.length;
+  if (length == 1) return [string];
+  let outputArray = [];
+  
+  for (let i = 0; i < length; i++) {
+    const charsArray = string.split(""),
+          char = charsArray.splice(i, 1)[0],
+          tempArray = permutations(charsArray.join(""));
+    for (let elem of tempArray) {
+      const temp = char + elem;
+      if (!outputArray.includes(temp)) outputArray.push(temp);
+    }
+  }
+  return outputArray;
+}
+
+console.log(permutations('a')); // ['a']
+console.log(permutations('ab')); // ['ab', 'ba']
+console.log(permutations('aabb')); // ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+
+
+/////////////////////////////////////////
+// Write a function that takes a string of braces, and determines if the order of the braces is valid. 
+// It should return true if the string is valid, and false if it's invalid.
+
+// This Kata is similar to the Valid Parentheses Kata, but introduces new characters: brackets [], and curly braces {}. 
+// Thanks to @arnedag for the idea!
+
+// All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+
+// What is considered Valid?
+// A string of braces is considered valid if all braces are matched with the correct brace.
+
+// Examples
+// "(){}[]"   =>  True
+// "([{}])"   =>  True
+// "(}"       =>  False
+// "[(])"     =>  False
+// "[({})](]" =>  False
+
+function validBraces(braces){
+  let leftBracesIndex = [];
+      
+  for (let i = 0, length = braces.length; i < length; i++) {
+    if (braces[i] === "(" || braces[i] === "[" || braces[i] === "{") {
+      leftBracesIndex.push(braces[i]);
+    } else if (braces[i] === ")") {
+      if ( leftBracesIndex.pop() !== "(") return false;      
+    } else if (braces[i] === "]") {
+      if ( leftBracesIndex.pop() !== "[") return false;      
+    } else if (braces[i] === "}") {
+      if ( leftBracesIndex.pop() !== "{") return false;      
+    }
+  }
+  return (!leftBracesIndex.length);
+}
+
+console.log(validBraces("(){}[]")); // true
+console.log(validBraces("([{}])")); // true
+console.log(validBraces("(}")); // false
+console.log(validBraces("[(])")); // false
+console.log(validBraces("[({})](]")); // false
+
+
+/////////////////////////////////////////
+
