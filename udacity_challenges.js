@@ -448,3 +448,271 @@ console.log(validBraces("[({})](]")); // false
 
 /////////////////////////////////////////
 
+// You and your alliance of warriors are trying to kill a monster to score points in a Kingdom vs.Kingdom(KvK) event.Each unit(both a warrior and a monster are considered a unit) has a certain number of health points(healthPoints) and attack damage value(attackDamage).When one unit attacks another, the health of the unit that is under attack is decreased by the attacker's damage value. If a unit's health points are reduced to zero or less, the unit dies and can't take part in the battle anymore.
+
+// The skirmish between the warrior alliance and the monster proceeds in the following way:
+
+// Each turn, you direct one of your warriors to attack the monster.
+// If the monster dies, you win.
+// If the monster is still alive after an attack, it counter - attacks the same warrior who attacked it in the previous step.
+// If all of your warriors die, you lose.
+// Find the maximum number of your warriors that will remain after defeating the monster.If it's impossible to kill a monster without losing all your warriors, return 0.
+
+// Example
+
+// For healthPoints = [110, 30, 50] and attackDamage = [12, 11, 20], the output should be
+// allianceVersusMonster(healthPoints, attackDamage) = 2.
+
+// One of the optimal strategies is as follows:
+
+// Attack the monster four times with the second warrior.The monster's health will become 110 - 20 * 4 = 30, while the warrior's health will be 50 - 12 * 4 = 2.
+// If you use the second warrior again immediately, it will die.Therefore, use the first warrior instead.Its three attacks will deplete the monster's health by 11 * 3 = 33 points, while the monster will respond only twice. After the third attack it will die instantly. Your first warrior's health will be 30 - 12 * 2 = 6 after the fight ends.
+// In this way you are able to save both of your warriors and win the battle.
+// For healthPoints = [4, 10, 10, 10] and attackDamage = [10, 1, 1, 1], the output should be
+// allianceVersusMonster(healthPoints, attackDamage) = 0.
+
+// Each of your warriors will be able to attack the monster only once because they will die after one counter - attack.Each of the attacks will reduce the monster's health by 1. Thus, after three turns, the monster will still have 1 health point but all of your warrior will be dead.
+
+// Input / Output
+
+// [execution time limit]4 seconds(js)
+
+// [input] array.integer healthPoints
+
+// Array of at least two positive integers.healthPoints[0] corresponds to the monster's health, while all the following elements refer to warriors of the alliance.
+
+// Guaranteed constraints:
+// 2 ≤ healthPoints.length ≤ 30,
+//   1 ≤ healthPoints[i]≤ 2 · 109 + 1.
+
+//   [input] array.integer attackDamage
+
+// Array of the same length as healthPoints, consisting of positive integers.attackDamage[0] equals the monster's attack damage, while all the following elements refer to warriors of the alliance.
+
+// Guaranteed constraints:
+// 2 ≤ attackDamage.length ≤ 30,
+//   1 ≤ attackDamage[i]≤ 100.
+
+//   [output] integer
+
+// The maximum number of your warriors that will remain after defeating the monster, or 0 if it's impossible to kill a monster without losing all your warriors.
+
+
+function allianceVersusMonster(healthPoints, attackDamage) {
+  const monster = [healthPoints.splice(0, 1)[0], attackDamage.splice(0, 1)[0]];
+  let proceed = true;
+  while (proceed) {
+    let i = healthPoints.indexOf(Math.max(...healthPoints));
+    if (healthPoints[i] > monster[1]) {
+      let num = healthPoints[i] / monster[1];
+      if (num % 1 === 0) num--;
+      else Math.floor(num);
+      monster[0] -= attackDamage[i] * num;
+      if (monster[0] <= 0) return healthPoints.length;
+      healthPoints[i] -= monster[1] * num;
+    } else {
+      i = attackDamage.indexOf(Math.max(...attackDamage));
+      monster[0] -= attackDamage[i];
+      if (monster[0] <= 0) return healthPoints.length;
+      healthPoints.splice(i, 1);
+      attackDamage.splice(i, 1);
+    }
+    if (healthPoints.length === 0 || monster[0] <= 0) {
+      proceed = false;
+    }
+  }
+  return healthPoints.length;
+}
+
+allianceVersusMonster([11, 4, 4, 4], [1, 1, 1, 1]);
+
+
+
+// Input:
+// healthPoints: [110, 30, 50]
+// attackDamage: [12, 11, 20]
+// Output:
+// 2
+// Expected Output:
+// 2
+
+// ////
+
+// Input:
+// healthPoints: [4, 10, 10, 10]
+// attackDamage: [10, 1, 1, 1]
+// Output:
+// 0
+// Expected Output:
+// 0
+// ///
+
+// Input:
+// healthPoints: [10, 3, 3, 3]
+// attackDamage: [2, 1, 5, 1]
+// Output:
+// 3
+// Expected Output:
+// 3
+// ///
+// Input:
+// healthPoints: [2000000000, 2000000000]
+// attackDamage: [1, 1]
+// Output:
+// 1
+// Expected Output:
+// 1
+// ///
+// Input:
+// healthPoints: [11, 4, 4, 4]
+// attackDamage: [1, 1, 1, 1]
+// Output:
+// 2
+// Expected Output:
+// 2
+// ///
+// Input:
+// healthPoints: [10, 4, 4, 4]
+// attackDamage: [1, 1, 1, 1]
+// Output:
+// 3
+// Expected Output:
+// 3
+// ///
+// Input:
+// healthPoints: [5, 10, 10, 10]
+// attackDamage: [10, 2, 2, 2]
+// Output:
+// 1
+// Expected Output:
+// 1
+
+
+/////////////////////////////////////////
+
+// Make the object from the array: { width: 10, height: 20 }
+
+var arr = [
+{name: 'width', value: 10},
+{name: 'height', value: 20}
+];
+
+function toObject(arr) {
+  return arr.reduce((acc, val) => (acc[val["name"]] = val["value"], acc), {});
+}
+
+console.log(toObject(arr));
+
+
+/////////////////////////////////////////
+
+// * Given string with letters A-Z:
+// * "AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+// * You need to write a funtion which returns:
+// * "A4B3C2XYZD4E3F3A6B28"
+// * And this funtion will throw any error if given string is invalid.
+// *
+// * Explanation:
+// * 1. If symbol is unique it will stay without changes
+// * 2. If symbol repeats more than once, you need to add a number of repetitions after this symbol
+
+const rle = (str) => {
+  if (/[^A-Z]/.test(str)) throw new Error("String is not valid");
+  const counter = { letter: "", num: 0 };
+  let output = "";
+  for (let char of str) {
+    if (char === counter.letter) counter.num++;
+    else {
+      if (counter.num > 1) output += counter.num;
+      counter.letter = char;
+      counter.num = 1;
+      output += char;
+    }
+  }
+  if (counter.num > 1) output += counter.num;
+  return output;
+};
+
+console.log(rle("AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));
+console.log(rle("AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB") === "A4B3C2XYZD4E3F3A6B28");
+
+
+/////////////////////////////////////////
+
+// * There are the function and the object. You need to print 'word' in console.
+// * How to make it without changing function's body?
+
+function f() { console.log(this.x); }
+var obj = { x: 'word' };
+obj.cons = function f() { console.log(this.x); };
+
+obj.cons();
+
+
+/////////////////////////////////////////
+
+// // Нужно написать функцию,
+// // которая найдёт анаграммы среди слов и сгруппирует их:
+// [ [ 'вертикаль', 'кильватер' ],
+//   [ 'апельсин', 'спаниель' ],
+//   [ 'австралопитек', 'ватерполистка' ],
+//   [ 'кластер', 'сталкер', 'стрелка' ] ]
+
+let input = ['вертикаль', 'кильватер',
+  'апельсин', 'спаниель',
+  'австралопитек', 'ватерполистка',
+  'кластер', 'сталкер', 'стрелка']
+
+const anagramm = array => {
+  let arr = [...array];
+  let output = [];
+  arr.forEach((val, i) => {
+    let tempArr = [val];
+    const tempWord = val.split("").sort().join("");
+
+    for (let j = i + 1; j < arr.length; j++) {
+      if (tempWord === arr[j].split("").sort().join("")) tempArr.push(arr.splice(j--, 1)[0]);
+    }
+    if (tempArr.length > 1) output.push(tempArr);
+  });
+  return output;
+};
+
+console.log(anagramm(input));
+
+
+/////////////////////////////////////////
+
+// Написать функцию, которая преобразует строку вида:
+// 'a.b.c.d' в объект { a: { b: { c: { d: null } } } }
+
+const toObject = (str, acc = {}) => {
+  acc[str.charAt(0)] = str.length > 1 ? toObject(str.substr(2)) : null;
+  return acc;
+}
+
+console.log(toObject("a.b.c.d"));
+
+
+/////////////////////////////////////////
+
+// Написать функцию, которая работает следующим образом:
+
+// sum(1)(2)(3)(); // вернёт 6
+// sum(10)(1)(); // вернет 11
+// и тд
+
+function sum(x) {
+  let args = x;
+  return function recursion(y = "stop") {
+    if (y !== "stop") {
+      args += y;
+      return recursion;
+    } else return args;
+  }
+}
+
+console.log(sum(1)(2)(3)()); // 6
+console.log(sum(10)(1)()); // 11
+console.log(sum(1)(2)(3)(4)(5)(6)()); // 21
+console.log(sum(10)()); // 10
