@@ -716,3 +716,65 @@ console.log(sum(1)(2)(3)()); // 6
 console.log(sum(10)(1)()); // 11
 console.log(sum(1)(2)(3)(4)(5)(6)()); // 21
 console.log(sum(10)()); // 10
+
+
+///////////////////////////////////
+
+// Robots battle
+
+function fight(robot1, robot2, tactics) {
+  let fastest,
+    slowest;
+  if (robot1.speed > robot2.speed || robot1.speed === robot2.speed) {
+    fastest = Object.assign({}, robot1);
+    slowest = Object.assign({}, robot2);
+  } else {
+    fastest = Object.assign({}, robot2);
+    slowest = Object.assign({}, robot1);
+  }
+  let winner;
+
+  while (fastest.tactics.length > 0 || slowest.tactics.length > 0) {
+    let currentTactics;
+    console.log("************ NEW TURN **********");
+    if (fastest.tactics.length > 0) {
+      console.log(`=== ${fastest.name}'s turn ===`);
+      console.log(`${fastest.name} health is ${fastest.health}`);
+      console.log(`${slowest.name} health is ${slowest.health}`);
+      currentTactics = fastest.tactics.shift();
+      slowest.health -= tactics[currentTactics];
+      console.log(`${fastest.name}'s tactics is ${currentTactics} with ${tactics[currentTactics]} damage`);
+      if (slowest.health <= 0) {
+        winner = fastest.name;
+        break;
+      }
+      console.log(`after attack: ${slowest.name}'s health is ${slowest.health}`);
+    }
+
+    if (slowest.tactics.length > 0) {
+      console.log(`=== ${slowest.name}'s turn ===`);
+      console.log(`${slowest.name} health is ${slowest.health}`);
+      console.log(`${fastest.name} health is ${fastest.health}`);
+      currentTactics = slowest.tactics.shift();
+      fastest.health -= tactics[currentTactics];
+      console.log(`${slowest.name}'s tactics is ${currentTactics} with ${tactics[currentTactics]} damage`);
+      if (fastest.health <= 0) {
+        winner = slowest.name;
+        break;
+      }
+      console.log(`after attack ${fastest.name}'s health is ${fastest.health}`);
+    }
+  }
+
+  if (winner) return `${winner} has won the fight.`;
+  else if (fastest.health > slowest.health) return `${fastest.name} has won the fight.`;
+  else if (slowest.health > fastest.health) return `${slowest.name} has won the fight.`;
+  else return "The fight was a draw.";
+}
+
+
+const robot1 = { "name": "Rocky", "health": 100, "speed": 20, "tactics": ["punch", "punch", "laser", "missile"] },
+  robot2 = { "name": "Missile Bob", "health": 100, "speed": 21, "tactics": ["missile", "missile", "missile", "missile"] },
+  tactics = { "punch": 20, "laser": 30, "missile": 35 };
+
+fight(robot1, robot2, tactics);
