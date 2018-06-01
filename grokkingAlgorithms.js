@@ -33,3 +33,32 @@ console.log(binarySearch(myList, 3));
 console.log(binarySearch(myList, -1));
 
 
+// Selection sort
+
+const findSmallestIndex = (arr) => {
+  let smallestIndex = 0;
+  let smallest = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < smallest) {
+      smallestIndex = i;
+      smallest = arr[i];
+    }
+  }
+
+  return smallestIndex;
+};
+
+const selectionSort = (arr) => {
+  const arrayCopy = [...arr];
+  const sortedArray = [];
+
+  arr.forEach((_) => {
+    const smallestIndex = findSmallestIndex(arrayCopy);
+    const smallest = arrayCopy.splice(smallestIndex, 1);
+
+    sortedArray.push(...smallest);
+  });
+
+  return sortedArray;
+};
