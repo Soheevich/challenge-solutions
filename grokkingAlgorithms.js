@@ -85,3 +85,17 @@ const biggestNumber = array => {
     return num > nextNum ? num : nextNum;
   }
 };
+
+
+// Quick sort
+
+const quickSort = array => {
+  if (array.length < 2) {
+    return array;
+  } else {
+    const pivot = array[0];
+    const less = array.slice(1).filter(val => val <= pivot);
+    const greater = array.slice(1).filter(val => val > pivot);
+    return [...quickSort(less), pivot, ...quickSort(greater)];
+  }
+};
