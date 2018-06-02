@@ -72,3 +72,16 @@ const sum = (array) => {
 };
 
 
+// Recursive biggest number search
+
+const biggestNumber = array => {
+  const num = array[0];
+
+  if (array.length === 1) {
+    return num;
+  } else {
+    const nextNum = biggestNumber(array.slice(1));
+
+    return num > nextNum ? num : nextNum;
+  }
+};
