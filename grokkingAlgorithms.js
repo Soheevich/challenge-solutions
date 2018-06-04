@@ -93,9 +93,11 @@ const quickSort = array => {
   if (array.length < 2) {
     return array;
   } else {
-    const pivot = array[0];
-    const less = array.slice(1).filter(val => val <= pivot);
-    const greater = array.slice(1).filter(val => val > pivot);
+    const arrayCopy = [...array];
+    const randomIndex = Math.floor(Math.random() * array.length);
+    const pivot = arrayCopy.splice(randomIndex, 1)[0];
+    const less = arrayCopy.filter(val => val <= pivot);
+    const greater = arrayCopy.filter(val => val > pivot);
     return [...quickSort(less), pivot, ...quickSort(greater)];
   }
 };
