@@ -101,3 +101,32 @@ const quickSort = array => {
     return [...quickSort(less), pivot, ...quickSort(greater)];
   }
 };
+
+
+// Merge sort
+
+const merge = (arrayLeft, arrayRight) => {
+  const finalArray = [];
+
+  while(arrayLeft.length && arrayRight.length) {
+    if (arrayLeft[0] < arrayRight[0]) {
+      finalArray.push(arrayLeft.shift());
+    } else {
+      finalArray.push(arrayRight.shift());
+    }
+  }
+
+  return [...finalArray, ...arrayLeft, ...arrayRight];
+};
+
+const mergeSort = array => {
+  if (array.length < 2) {
+    return array;
+  } else {
+    const middle = Math.floor(array.length / 2);
+    const left = array.slice(0, middle);
+    const right = array.slice(middle);
+
+    return merge(mergeSort(left), mergeSort(right));
+  }
+};
